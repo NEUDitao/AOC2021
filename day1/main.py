@@ -17,7 +17,6 @@ print('part 1:', acc)
 acc = 0
 
 for i in range(2, len(lines) - 1):
-    print(lines[i], lines[i-1], lines[i+1], lines[i-2])
     a = lines[i] + lines[i-1] + lines[i-2]
     b = lines[i-1] + lines[i] + lines[i+1]
 
