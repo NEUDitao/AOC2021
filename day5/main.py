@@ -8,12 +8,12 @@ coords = [([int(c) for c in line[0].split(',')],
            [int(c) for c in line[1].split(',')]) for line in lines]
 
 
-def is_hetero(coord: Tuple[List[int], List[int]]):
+def is_hetero(coord: Tuple[List[int], List[int]]) -> bool:
     ((x1, y1), (x2, y2)) = coord
     return x1 == x2 or y1 == y2
 
 
-def get_step(n1: int, n2: int):
+def get_step(n1: int, n2: int) -> int:
     if n1 > n2:
         return -1
     else:
