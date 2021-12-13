@@ -1,5 +1,5 @@
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
 lines = open('input', 'r').readlines()
@@ -11,21 +11,22 @@ for line in lines:
     graph[end] = graph.get(end, []) + [start]
 
 
-def find_path(start: str, seen: List[str]) -> int:
+def find_path(start: str, seen: List[str], dup: Optional[str]) -> int:
     global graph
     if start == 'end':
         return 1
-    else:
-        next_nodes = graph[start]
-        sum = 0
-        for node in next_nodes:
-            if node in seen:
-                continue
-            elif node.islower():
-                sum += find_path(node, seen + [node])
-            else:
-                sum += find_path(node, seen)
-        return sum
+    if start == 'start' and 'start' in seen:
+        return 0
+    if start.islower() and start in seen:
+        if not dup:
+            dup = start
+        else:
+            return 0
+    seen = seen + [start]
+    graph_sum = 0
+    for node in graph[start]:
+        graph_sum += find_path(node, seen, dup)
+    return graph_sum
 
 
-print(find_path('start', ['start']))
+print(find_path('start', [], None))
